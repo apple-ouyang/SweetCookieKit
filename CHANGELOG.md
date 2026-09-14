@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 0.5.3 — 2026-09-13
 
 **Highlights:** Safari, Firefox, and Zen imports now preserve domain-cookie scope.
