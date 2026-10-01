@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 0.5.4 — 2026-10-01
 
 **Highlights:** Repeated Chromium local-storage reads are served from an in-memory memo until the LevelDB files change.
