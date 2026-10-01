@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.5.4 — 2026-10-01
+
+**Highlights:** Repeated Chromium local-storage reads are served from an in-memory memo until the LevelDB files change.
 
 - Memoize complete Chromium local-storage reads and derived text, token, and origin results in memory with file-change invalidation, bounded retention, and an explicit cache invalidation API.
 
