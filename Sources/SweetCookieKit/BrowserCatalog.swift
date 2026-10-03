@@ -277,6 +277,30 @@ enum BrowserCatalog {
                 chromiumProfileRelativePath: "Comet",
                 geckoProfilesFolder: nil,
                 safeStorageLabels: [("Comet Safe Storage", "Comet")]),
+            BrowserMetadata(
+                browser: .aside,
+                displayName: "Aside",
+                engine: .chromium,
+                defaultImportOrderRank: 25,
+                chromiumProfileRelativePath: "Aside",
+                geckoProfilesFolder: nil,
+                safeStorageLabels: [("Aside Safe Storage", "Aside")]),
+            BrowserMetadata(
+                browser: .opera,
+                displayName: "Opera",
+                engine: .chromium,
+                defaultImportOrderRank: 26,
+                chromiumProfileRelativePath: "com.operasoftware.Opera",
+                geckoProfilesFolder: nil,
+                safeStorageLabels: [("Opera Safe Storage", "Opera")]),
+            BrowserMetadata(
+                browser: .operaNeon,
+                displayName: "Opera Neon",
+                engine: .chromium,
+                defaultImportOrderRank: 27,
+                chromiumProfileRelativePath: "com.operasoftware.OperaNeon",
+                geckoProfilesFolder: nil,
+                safeStorageLabels: [("Opera Safe Storage", "Opera")]),
         ]
 
         var map: [Browser: BrowserMetadata] = [:]
@@ -317,6 +341,9 @@ enum BrowserCatalog {
             .yandex,
             .dia,
             .comet,
+            .aside,
+            .opera,
+            .operaNeon,
         ]
         return labelOrder.flatMap { metadata(for: $0).safeStorageLabels }
     }()

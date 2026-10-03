@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Aside, Opera, and Opera Neon to Chromium cookie discovery with their profile roots and Safe Storage labels (steipete/CodexBar#4215, steipete/CodexBar#2429).
+
 ## 0.5.4 — 2026-10-01
 
 **Highlights:** Repeated Chromium local-storage reads are served from an in-memory memo until the LevelDB files change.
