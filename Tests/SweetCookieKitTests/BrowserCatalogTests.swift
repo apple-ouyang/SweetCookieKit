@@ -1,9 +1,42 @@
+import Foundation
 import Testing
 @testable import SweetCookieKit
 
 #if os(macOS)
 
 struct BrowserCatalogTests {
+    @Test(arguments: [
+        ("aside", "Aside", "Aside", ("Aside Safe Storage", "Aside")),
+        ("opera", "Opera", "com.operasoftware.Opera", ("Opera Safe Storage", "Opera")),
+        ("operaNeon", "Opera Neon", "com.operasoftware.OperaNeon", ("Opera Safe Storage", "Opera")),
+    ])
+    func `additional Chromium browsers expose metadata and synthetic profile stores`(
+        fixture: (String, String, String, (String, String))) throws
+    {
+        let (id, name, path, (service, account)) = fixture
+        let browser = try #require(Browser(rawValue: id))
+        #expect(browser.displayName == name)
+        #expect(browser.appBundleName == name)
+        #expect(browser.chromiumProfileRelativePath == path)
+        #expect(browser.safeStorageLabels.map(\.service) == [service])
+        #expect(browser.safeStorageLabels.map(\.account) == [account])
+        #expect(Browser.defaultImportOrder.contains(browser))
+        #expect(Browser.safeStorageLabels.contains { $0.service == service && $0.account == account })
+
+        let home = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: home) }
+        let root = try #require(ChromiumProfileLocator.roots(for: [browser], homeDirectories: [home]).first)
+        #expect(root.url == home.appendingPathComponent("Library/Application Support/\(path)"))
+        for profile in ["Default", "Profile 1"] {
+            let directory = root.url.appendingPathComponent(profile)
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            try Data().write(to: directory.appendingPathComponent("Cookies"))
+        }
+        let stores = BrowserCookieClient(configuration: .init(homeDirectories: [home])).stores(for: browser)
+        #expect(Set(stores.map(\.profile.name)) == Set(["Default", "Profile 1"]))
+        #expect(stores.allSatisfy { $0.browser == browser })
+    }
+
     @Test
     func `metadata covers all browsers`() {
         #expect(BrowserCatalog.metadataByBrowser.count == Browser.allCases.count)
