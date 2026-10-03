@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.5.5 — 2026-10-03
+
+**Highlights:** Aside, Opera, and Opera Neon are discovered as Chromium cookie sources.
 
 - Add Aside, Opera, and Opera Neon to Chromium cookie discovery with their profile roots and Safe Storage labels (steipete/CodexBar#4215, steipete/CodexBar#2429).
 
